@@ -4,7 +4,7 @@
 
 [![PDF](https://img.shields.io/badge/Read-Full%20PDF-b31b1b)](Hamza_et_al_2026_Legal_AI_Survey.pdf)
 [![LaTeX](https://img.shields.io/badge/Built%20with-LaTeX-008080)](Hamza_et_al_2026_Legal_AI_Survey.tex)
-[![References](https://img.shields.io/badge/References-251%20verified-blue)](references.bib)
+[![References](https://img.shields.io/badge/References-46-blue)](references.bib)
 
 ---
 
@@ -83,8 +83,8 @@ approach.
 
 ## Core architecture: Retrieval-Augmented Generation
 
-Retrieval-augmented generation, introduced by Lewis et al. (2020) outside the legal domain, became
-the backbone of legal AI systems from 2024 onward. The figure below reproduces the original
+Retrieval-augmented generation, introduced by Lewis et al. (2020) outside the legal domain, is what
+legal AI systems increasingly built on from 2024 onward. The figure below reproduces the original
 architecture this survey traces into its legal applications.
 
 <p align="center">
@@ -99,11 +99,11 @@ architecture this survey traces into its legal applications.
 Q1 Survey Paper - Concise/
 ├── Hamza_et_al_2026_Legal_AI_Survey.tex   # Main LaTeX file (cas-dc class)
 ├── Hamza_et_al_2026_Legal_AI_Survey.pdf   # Final compiled paper
-├── references.bib                         # Bibliography (251 verified entries)
+├── references.bib                         # Bibliography (46 entries)
 ├── sections/                               # One file per section, 01-12
-├── figures/                                 # TikZ-generated figures (.tex)
+├── figures/                                 # Figure files with captions (.tex)
 ├── images/                                  # Rasters used in the paper
-└── thumbnails/                              # Journal submission assets
+└── thumbnails/                              # cas-dc class icon
 ```
 
 ---
