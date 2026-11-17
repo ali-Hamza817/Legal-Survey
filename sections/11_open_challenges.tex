@@ -1,0 +1,90 @@
+\section{Open Challenges and Future Research Directions}
+\label{sec:future}
+
+Contemporary legal AI, as the chronological account in Sections~\ref{sec:foundations}--\ref{sec:2026}
+has shown, has made genuine progress in legal language understanding, evidence retrieval, document
+drafting, and agentic processing. These capabilities, though, remain difficult to bring together
+into a system that consistently returns relevant, applicable, and verifiable legal answers. The
+central research challenge is therefore not to produce more fluent legal text, but to build systems
+that retrieve authoritative evidence, preserve its legal context, reason over relationships between
+sources, and verify the claims they generate. Seven directions follow from the synthesis in
+Sections~\ref{sec:reliability} and~\ref{sec:jurisdiction}.
+
+\textbf{Knowledge-graph-grounded retrieval.} Flat indexes struggle with questions that need
+relationships across documents, such as connecting a provision to its definition and to the
+judgments that interpret it. Future work should combine graph-based and text retrieval. It should
+keep provenance for every relationship and tell apart explicitly stated facts from inferred
+connections. Researchers could evaluate this by comparing a text-only baseline, a graph-only
+method, and a combined architecture on multi-hop legal questions.
+
+\textbf{Multilingual and low-resource retrieval.} Researchers should evaluate cross-lingual
+retrieval models, terminology alignment, and transliteration-aware indexing in two ways: by
+measuring how retrieval performance varies across English, Urdu, and Roman Urdu queries, and by
+checking whether legal entity linking reduces errors involving statutory names and section numbers.
+The central risk here is mistaking linguistic similarity for legal equivalence.
+
+\textbf{Structure-aware indexing.} Researchers should compare fixed-size, semantic, and hierarchical
+chunking under the same conditions. They should pay particular attention to whether preserving
+structure improves downstream answer quality beyond its effect on retrieval recall. Parsing
+failures also deserve attention: malformed PDFs, inconsistent numbering, and broken cross-references
+can all propagate errors through the rest of the pipeline.
+
+\textbf{Claim-level evidence verification.} Citation-grounded generation is not enough if a system
+only checks whether a response contains references. Future architectures should tie each material
+claim to the specific passage meant to support it. They should resolve citations and flag
+unsupported or contradictory statements, because legal support is often more complex than ordinary
+textual entailment: a passage may state a general rule while a different passage supplies the
+exception.
+
+\textbf{Agentic legal AI with explicit quality gates.} Orchestration should focus on
+evidence-controlled workflows rather than simply adding more agents. Each stage needs explicit input
+requirements, output contracts, and quality checks. Experiments should compare single-agent and
+multi-agent alternatives under equivalent retrieval settings. Without such controls, we cannot
+reliably credit improvements to agentic orchestration.
+
+\textbf{Temporal and authority-aware reasoning.} Statutes get amended, and judgments get
+distinguished or overruled, over time. Future systems should therefore represent effective dates and
+relationships between authorities. They should not assume the newest document is necessarily the
+most applicable.
+
+\textbf{Reproducible evaluation and realistic benchmarks.} Future benchmarks should combine
+retrieval and generation evaluation while keeping separate scores for each stage, following the
+groundedness, retrieval-accuracy, and correctness decomposition this survey described in
+Section~\ref{sec:reliability}. They should include difficult cases involving exceptions and
+competing authorities. They should also report dataset construction, annotation instructions, and
+inter-annotator agreement, so researchers can tell genuine architectural improvements apart from
+differences in test construction.
+
+Table~\ref{tab:agenda} pulls these directions together into measurable research objectives.
+
+\begin{table*}[tp]
+\centering
+\caption{Open challenges and measurable research objectives.}
+\label{tab:agenda}
+\footnotesize
+\setlength{\tabcolsep}{5pt}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{3.6cm} >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X}
+\toprule
+\textbf{Research challenge} & \textbf{Proposed direction} & \textbf{Example evaluation} \\
+\midrule
+Missing cross-document relationships & Combine knowledge graphs with text retrieval. & Recall on multi-hop questions and graph-relation accuracy. \\
+Low-resource multilingual queries & Multilingual retrieval with terminology alignment. & Language-specific Recall@$k$ and expert-assessed correctness. \\
+Loss of legal hierarchy & Structure-aware indexing and parent-child retrieval. & Structural extraction accuracy and downstream answer quality. \\
+Unsupported legal claims & Claim-level evidence verification. & Claim-support precision, recall, and unsupported-claim rate. \\
+Unreliable agentic workflows & Modular orchestration with explicit quality gates. & Correctness, failure recovery, latency, and ablation results. \\
+Outdated or inapplicable authorities & Temporal and authority-aware retrieval. & Outdated-law error rate and applicability accuracy. \\
+Incomparable research results & Shared benchmarks and reproducible protocols. & Cross-system results under common data and evaluation rules. \\
+\bottomrule
+\end{tabularx}
+\end{table*}
+
+These directions depend on one another. Knowledge graphs support authority-aware retrieval only if
+source extraction is accurate. Multilingual retrieval improves access but still needs jurisdictional
+filtering. Structure-aware indexing preserves context that claim-level verification can then assess.
+Agentic workflows can coordinate all of this, but only reproducible evaluation can show whether the
+resulting system is actually more dependable. The most promising agenda is therefore an integrated
+one: knowledge-graph-grounded, multilingual, structure-aware legal retrieval with explicit evidence
+verification and reproducible evaluation. This agenda carries into the next decade the same two
+questions this survey opened with in 1991: how should we represent legal knowledge, and how should
+we trust a system's reasoning over it?

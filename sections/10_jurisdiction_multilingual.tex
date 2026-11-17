@@ -1,0 +1,78 @@
+\section{Synthesis: Jurisdiction, Document Structure, and Multilingual Legal AI}
+\label{sec:jurisdiction}
+
+This chapter draws together a theme this survey has touched at several points along its chronology,
+most directly through \citet{ref312025} and Legalyze \citep{hamza2026} in Section~\ref{sec:2026}:
+legal information retrieval is jurisdiction-dependent in a way general-purpose retrieval is not. The
+relevance of a document depends not only on its topic but on its legal authority, jurisdiction,
+temporal validity, and relationship to the question asked. A question on Pakistani criminal
+procedure should prioritize applicable Pakistani legislation and judicial decisions. A semantically
+similar provision from another jurisdiction may help explain a general concept, but a system should
+not automatically treat it as governing authority. Jurisdiction-sensitive retrieval therefore has to
+consider territorial and institutional jurisdiction, authority type (legislation, binding judgment,
+persuasive judgment, commentary), temporal validity, procedural context, and precedential
+relationships. An embedding model, of the kind described in Section~\ref{sec:rag2024}, can mark two
+passages as highly similar without determining whether either is legally applicable. These
+constraints should shape retrieval and verification directly, not just appear as explanatory text in
+the final answer.
+
+Legal documents also carry multiple layers of organization. Statutes divide into parts, sections,
+subsections, and provisos. Judgments contain procedural history, issues, reasoning, and final
+orders. Fixed-size chunking can separate a provision from its heading, definition, or exception,
+producing a fragment that remains readable while losing the context legal interpretation needs. The
+structure-aware retrieval techniques described in Section~\ref{sec:rag2024} address this in four
+ways. Hierarchical metadata links each passage to its document, chapter, and section.
+Context-preserving chunking keeps headings and exceptions attached. Parent-child retrieval recovers
+a passage's broader context on demand. Provenance preservation records the source document and
+version a reader needs to verify it. Pakistan shows why this matters in practice. Its legal
+information needs span the Constitution, the Pakistan Penal Code, the Code of Criminal Procedure,
+the Qanun-e-Shahadat Order, and judicial decisions that serve different legal functions, so a corpus
+can be large and still miss relevant amendments or authoritative judgments. A provision's wording or
+interpretation can also change over time. A system has to track this by recording source dates and
+applicable versions, instead of assuming the newest document is the most authoritative.
+\citet{ref312025} demonstrated a RAG-based framework combining semantic and keyword retrieval over
+selected Pakistani legal materials. Legalyze \citep{hamza2026} extended this with hierarchical
+indexing, hybrid retrieval, and rank fusion, as Section~\ref{sec:2026} described. A meaningful
+comparison between the two would still need a shared evaluation dataset, consistent query sets, and
+common retrieval and answer-quality measures.
+
+A further challenge arises when a user's query language differs from the language or script of the
+authoritative source. This is common when Pakistani legal questions appear in Urdu or Roman Urdu
+while the relevant statute or judgment appears in English. Direct translation alone can fall short,
+because legal concepts carry jurisdiction-specific meanings that do not map exactly across
+languages. Table~\ref{tab:multilingual} summarizes the main technical approaches.
+
+\begin{table*}[t]
+\centering
+\caption{Technical approaches to multilingual legal retrieval.}
+\label{tab:multilingual}
+\footnotesize
+\setlength{\tabcolsep}{5pt}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{3.0cm} >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X}
+\toprule
+\textbf{Approach} & \textbf{Main advantage} & \textbf{Main limitation} \\
+\midrule
+Query translation & Enables use of existing monolingual retrieval infrastructure. & Translation may distort legal terms or procedural meaning. \\
+Multilingual dense retrieval & Supports cross-language semantic matching in a shared embedding space. & Similar embeddings do not guarantee legal-concept equivalence. \\
+Transliteration normalization & Helps retrieve Roman Urdu and Urdu spelling variants. & Many transliterations remain ambiguous or inconsistent. \\
+Legal terminology alignment & Links expressions to jurisdiction-specific legal concepts. & Requires curated terminology and entity-linking resources. \\
+\bottomrule
+\end{tabularx}
+\end{table*}
+
+A practical architecture combines these methods instead of relying on just one. Language
+identification and transliteration normalization process the query first. Legal entity linking and
+terminology alignment then identify the relevant statutes and concepts. Retrieval searches both the
+original and normalized query before rank fusion and jurisdictional filtering. The system should
+keep the original query and the original authoritative passage throughout. Translation can support
+retrieval, but the final answer should not quietly substitute a translated interpretation for the
+governing source text. We should also carry out evaluation separately for each supported language,
+rather than assume it carries over from an English-only benchmark. Jurisdiction, document structure,
+and language are consequently tied together, not separable concerns. Language normalization can help
+locate a relevant provision, but document structure still has to preserve its context. Hierarchical
+indexing can identify the correct section, but jurisdictional and temporal checks remain necessary
+to work out whether it actually applies. For Pakistani legal AI, the resulting requirement is clear:
+effective retrieval needs more than semantic similarity. It needs legal hierarchy, authority
+relationships, temporal metadata, source provenance, and cross-language concept alignment, all
+working together. That requirement leads into the open research directions we discuss next.

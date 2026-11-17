@@ -1,0 +1,46 @@
+% Original diagram summarizing the three BERT adaptation strategies of Chalkidis et al.
+% (2020), "LEGAL-BERT: The Muppets Straight out of Law School" (Findings of EMNLP 2020),
+% Figure 1. Redrawn in this paper's own visual style; cited in the caption and surrounding text.
+\begin{figure*}[t]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[
+  font=\scriptsize,
+  lbl/.style={font=\scriptsize\bfseries, align=center},
+  stg/.style={draw, thick, rounded corners=2pt, align=center, text width=3.0cm,
+              minimum height=12mm, inner sep=2pt},
+  rowlbl/.style={font=\small\bfseries, align=left, anchor=east}]
+
+  \node[lbl] at (2.5,1.2)  {Pre-train};
+  \node[lbl] at (6.5,1.2)  {Adapt};
+  \node[lbl] at (10.5,1.2) {Fine-tune};
+
+  % row (a) BERT-BASE
+  \node[rowlbl] at (-0.3,0) {(a) BERT-BASE};
+  \node[stg, fill=orange!25, draw=orange!70] (a1) at (2.5,0) {Generic Corpora};
+  \node[stg, fill=blue!20, draw=blue!60]     (a3) at (10.5,0) {Task Data};
+  \draw[-{Latex[length=2.4mm]}, line width=0.9pt] (a1) -- (a3);
+
+  % row (b) LEGAL-BERT-FP
+  \node[rowlbl] at (-0.3,-1.6) {(b) LEGAL-BERT-FP};
+  \node[stg, fill=orange!25, draw=orange!70] (b1) at (2.5,-1.6) {Generic Corpora};
+  \node[stg, fill=cyan!20, draw=cyan!60]     (b2) at (6.5,-1.6) {Domain Corpora};
+  \node[stg, fill=blue!20, draw=blue!60]     (b3) at (10.5,-1.6) {Task Data};
+  \draw[-{Latex[length=2.4mm]}, line width=0.9pt] (b1) -- (b2);
+  \draw[-{Latex[length=2.4mm]}, line width=0.9pt] (b2) -- (b3);
+
+  % row (c) LEGAL-BERT-SC
+  \node[rowlbl] at (-0.3,-3.2) {(c) LEGAL-BERT-SC};
+  \node[stg, fill=cyan!20, draw=cyan!60]     (c2) at (2.5,-3.2) {Domain Corpora};
+  \node[stg, fill=blue!20, draw=blue!60]     (c3) at (10.5,-3.2) {Task Data};
+  \draw[-{Latex[length=2.4mm]}, line width=0.9pt] (c2) -- (c3);
+
+\end{tikzpicture}}
+\caption{The three strategies for adapting BERT to a downstream legal NLP task, from
+\citet{chalkidis2020}, redrawn here for discussion. (a) BERT-BASE uses the original pretrained
+model as-is and fine-tunes directly on task data; (b) LEGAL-BERT-FP further pretrains BERT on
+domain-specific (legal) corpora before fine-tuning; (c) LEGAL-BERT-SC pretrains a new model from
+scratch on domain-specific corpora. All three alternatives share a final fine-tuning step on the
+task data.}
+\label{fig:legalbert}
+\end{figure*}

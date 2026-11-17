@@ -1,0 +1,95 @@
+\section{Quantifying and Predicting Legal Outcomes (2014--2018)}
+\label{sec:outcomes}
+
+\subsection{2014: predicting a court's decision from data}
+
+The next advance did not come from representing legal reasoning more carefully. It came from a
+different question: could statistics predict a court's decision, with no explicit model of legal
+reasoning at all? In 2014, \citet{katz2014} built a time-evolving statistical classifier, training it
+on historical voting and case data to predict the outcomes of United States Supreme Court decisions.
+Their method used an ensemble of decision trees, a random-forest classifier; it was not a language
+model, and it was not a case-based comparison in Ashley's sense, but rather a quantitative
+pattern-recognition problem over structured case features. The result mattered precisely because the
+system did not need to represent legal rules or compare case facts the way HYPO did: it showed that
+a purely statistical model, given enough historical data, could forecast judicial behavior with
+useful accuracy. This also exposed a limitation that recurs throughout the rest of this survey. A
+system can predict an outcome correctly while giving no account of the legal reasoning behind it,
+which is a very different capability from explaining \emph{why} a court should decide a case a
+particular way.
+
+In the same year, a separate study took on a different question: not whether a system could predict
+an outcome, but whether a system could answer a legal question directly. \citet{kim2014} built a
+legal question-answering system that combines legal information retrieval with textual entailment,
+ranking candidate answers with a support vector machine informed by syntactic and semantic
+similarity. The authors evaluated it on the first Competition on Legal Information Extraction and
+Entailment (COLIEE) dataset. Katz predicted an outcome from structured case data, while Kim retrieved
+and compared legal text directly, and together they give a useful snapshot of 2014: the same year
+produced an outcome-prediction system that bypassed legal text entirely, and a question-answering
+system built entirely around retrieving and comparing it. The COLIEE benchmark this study helped
+establish recurs throughout this survey, as later editions appear in subsequent years.
+
+\subsection{2017: extracting structure from legal text, and predicting charges from facts}
+
+Three years later, two separate lines of work, both published in 2017, pushed in a complementary
+direction: instead of predicting an outcome from case metadata, they tried to connect a predicted
+outcome back to the specific legal text that justifies it. \citet{chalkidis2017} took on contract
+element extraction, applying neural sequence-labelling methods to identify defined terms,
+obligations, and other structured elements directly within contract text. This was an early sign
+that neural NLP methods could extract the kind of structured legal information earlier rule-based
+systems had encoded by hand. In the same year, \citet{luo2017} proposed a model for predicting
+criminal charges that explicitly retrieves and attends over the specific statutory articles that
+justify a predicted charge. It uses an attention mechanism to connect the facts of a case to the law
+articles it identifies as relevant, and the authors report that this explicit legal-basis signal
+improved charge-prediction accuracy over models using case facts alone. Katz's 2014 model predicted
+an outcome without reference to legal text, while Luo et al.'s model took a first step toward
+grounding a predicted outcome in the specific statutory provisions that justify it. This anticipates
+the evidence-grounding problem that motivates legal RAG later in this survey.
+
+\subsection{2018: modelling legal judgment as several connected subtasks}
+
+The following year, \citet{zhong2018} generalized this idea. Rather than predicting a single output,
+a charge or a verdict, they observed that a real legal judgment involves several connected subtasks:
+identifying the applicable law articles, determining the charge, and deciding the sentence term.
+They modelled the dependencies among these subtasks as a directed acyclic graph and solved them
+jointly through topological multi-task learning, reporting that representing these dependencies
+explicitly improved performance over treating each subtask on its own. Compared with
+\citet{katz2014} and \citet{luo2017}, this period teaches one specific and cumulative lesson: legal
+judgment prediction benefits from representing the structure of a legal decision, not just its
+textual facts. The rest of this survey shows the field relearning that lesson, in a different form,
+as it moves from outcome prediction toward retrieval-augmented generation.
+
+\subsection{What the foundational and prediction periods together established}
+
+Table~\ref{tab:foundational} summarizes the approaches discussed so far, in the order the field
+published them between 1991 and 2018.
+
+\begin{table*}[tp]
+\centering
+\caption{Legal AI milestones discussed so far, in chronological order (1991--2018).}
+\label{tab:foundational}
+\footnotesize
+\setlength{\tabcolsep}{5pt}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{1.6cm} >{\raggedright\arraybackslash}p{2.9cm} >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X}
+\toprule
+\textbf{Year} & \textbf{Study} & \textbf{Core idea} & \textbf{Principal limitation} \\
+\midrule
+1991 & \citet{ashley1991} (HYPO) & Compare a dispute with precedents and construct arguments from relevant similarities and differences. & Legally meaningful similarity, not textual similarity, must be identified. \\
+2003 & \citet{ashley2003} & Reframe case-based legal reasoning as lazy, case-driven learning. & Does not by itself resolve how legal knowledge should be found or maintained at scale. \\
+2009 & \citet{cormack2009} & Combine multiple ranked lists via Reciprocal Rank Fusion (general-purpose IR, not legal). & Carries no legal content; legal relevance only emerges once applied to legal retrieval, later in this survey. \\
+2014 & \citet{katz2014} & Predict United States Supreme Court outcomes with a statistical, time-evolving classifier. & Predicts outcomes without explaining the applicable legal reasoning. \\
+2014 & \citet{kim2014} & Answer legal questions by combining information retrieval with SVM-ranked textual entailment on COLIEE data. & Entailment between a question and a retrieved article, not broader legal reasoning. \\
+2017 & \citet{chalkidis2017} & Extract structured elements (terms, obligations) from contracts with neural sequence labelling. & Extraction, not reasoning about the extracted elements. \\
+2017 & \citet{luo2017} & Jointly predict criminal charges and the statutory articles that justify them. & Evaluated on Chinese criminal cases; generalization across jurisdictions untested. \\
+2018 & \citet{zhong2018} & Model law article, charge, and sentence prediction as dependent subtasks solved jointly. & Predicts a judgment's components without retrieving or citing external authoritative sources. \\
+\bottomrule
+\end{tabularx}
+\end{table*}
+
+None of these approaches alone solved the problem of locating authoritative evidence, keeping its
+context, and producing a legally justified answer. Together, though, they set up the two remaining
+halves of the problem, and the rest of this survey follows them in order. The first half is
+representing legal knowledge in a form a model can learn from, which the field pursued through
+legal language models starting in 2020. The second half is retrieving external, verifiable evidence
+instead of relying on what a model has memorized, which the field pursued through
+retrieval-augmented generation starting in 2024. We take up the first of these next.

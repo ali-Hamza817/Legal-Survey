@@ -1,0 +1,113 @@
+\documentclass[final]{cas-dc}
+
+% ===== packages =====
+\usepackage[utf8]{inputenc}
+\usepackage{helvet}
+\usepackage[round]{natbib}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{positioning,arrows.meta,calc,shapes.geometric,backgrounds,fit}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{placeins}
+
+% ===== light styling =====
+\definecolor{legalblue}{RGB}{20,60,120}
+\definecolor{citeblue}{RGB}{0,102,204}
+\setlist{nosep, leftmargin=*}
+\renewcommand{\arraystretch}{1.2}
+\hypersetup{colorlinks=true, linkcolor=citeblue, citecolor=citeblue, urlcolor=citeblue,
+  pdfborder={0 0 0}, breaklinks=true}
+
+% ===== float tuning =====
+\setcounter{topnumber}{3}
+\setcounter{totalnumber}{5}
+\renewcommand{\topfraction}{0.95}
+\renewcommand{\bottomfraction}{0.9}
+\renewcommand{\textfraction}{0.05}
+\renewcommand{\floatpagefraction}{0.8}
+
+\begin{document}
+
+\ExplSyntaxOn
+\RenewDocumentCommand \printorcid { }
+{
+  \seq_if_empty:NF \g_stm_orcid_seq
+  {
+    \group_begin:
+      \tex_let:D \thefootnote \relax \footnotetext
+      {
+        \raggedright
+        \textsc{orcid}(s):\c_space_token
+        \seq_use:Nn \g_stm_orcid_seq { ;~ }
+      }
+    \group_end:
+  }
+}
+\ExplSyntaxOff
+
+\shortauthors{Hamza}
+\shorttitle{Legal AI: From Case-Based Reasoning to Structure-Aware RAG}
+
+\title[weight=\bfseries, size=\Huge]{Legal Artificial Intelligence: From Case-Based Reasoning to Reliable, Structure-Aware Retrieval-Augmented Generation}
+
+\author{Ali Hamza}
+\cormark[1]
+\ead{ahamza.msse25mcs@student.nust.edu.pk}
+
+\author{Imran Usman}
+
+\author{Rabia Khan}
+
+\affiliation{organization={National University of Sciences and Technology (NUST)},
+            city={Islamabad},
+            country={Pakistan}}
+
+\cortext[1]{Corresponding author.}
+
+\begin{abstract}
+Legal work depends on finding, interpreting, and applying authoritative texts, such as statutes,
+regulations, prior decisions, and procedural rules. A useful legal AI system must connect every
+claim to a reliable legal source, not just produce fluent language. This survey presents the
+development of legal artificial intelligence as one chronological journey, beginning with Ashley's
+case-based reasoning system HYPO in 1991 and ending with Legalyze in 2026. We introduce each stage
+in the order it was published, moving from early reasoning and prediction through domain-adapted
+language models to retrieval-augmented generation and contemporary benchmarks. Legalyze and the
+data-synthesis approach of Ren et al.\ (2026) serve as a comparative case study of two
+complementary design philosophies. We bring this account together through three synthesis
+chapters, covering reliability and citation verification, jurisdictional and multilingual access
+with attention to Pakistan, and open research challenges. Throughout, we restrict every claim to
+literature we could independently verify.
+\end{abstract}
+
+\begin{keywords}
+Legal artificial intelligence \sep Retrieval-augmented generation \sep Legal information retrieval \sep Legal language models \sep Structure-aware retrieval \sep Hallucination \sep Citation verification \sep Pakistani legal AI
+\end{keywords}
+
+\maketitle
+
+\input{sections/01_introduction}
+\input{sections/02_methodology}
+\input{sections/03_foundations_1991_2009}
+\input{sections/04_outcomes_2014_2018}
+\input{sections/05_language_models_2020_2023}
+\input{sections/06_rag_emergence_2024}
+\input{sections/07_maturing_rag_2025}
+\input{sections/08_contemporary_2026}
+\input{sections/09_reliability}
+\input{sections/10_jurisdiction_multilingual}
+\input{sections/11_open_challenges}
+\input{sections/12_conclusion}
+
+\section*{Declaration of Generative AI and AI-assisted Technologies in the Writing Process}
+The authors used AI for linguistic purposes only, and not for idea generation or creation.
+
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+\FloatBarrier
+\end{document}

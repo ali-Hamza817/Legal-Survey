@@ -1,0 +1,42 @@
+\section{Conclusion}
+\label{sec:conclusion}
+
+This survey has told one continuous story, in the order it actually happened. It runs from Ashley's
+HYPO in 1991, through case-based reasoning's reframing as lazy learning in 2003, through the
+statistical and neural prediction of legal outcomes between 2014 and 2018, through domain-adapted
+legal language models and their benchmarks between 2020 and 2023, through the emergence of legal
+retrieval-augmented generation in 2024, through a year of maturing systems and sharper evaluation in
+2025, and on to the contemporary systems of 2026, Legalyze among them. If we read the field this
+way, instead of organizing it by topic, a specific pattern becomes visible, one a topic-first
+account can obscure: each stage responded to a concrete limitation of the one before it. Case-based
+reasoning showed that legal relevance depends on more than textual similarity, but it struggled to
+scale. Quantitative outcome prediction scaled, but could not explain its own reasoning. Legal
+language models processed text fluently, but could not guarantee they were right.
+Retrieval-augmented generation connected generation to external evidence, but retrieval quality,
+legal correctness, and citation support turned out to be three separate problems, not one.
+
+The comparative case study of Legalyze and Ren et al.\ (2026) shows this same pattern at the scale
+of a single year. Two systems appeared in the same year, addressed the same general problem, and
+chose to solve different halves of it. One used structure-aware evidence grounding; the other used
+synthetic training data. Neither choice is complete on its own. That is exactly the lesson this
+survey's reliability synthesis drew from \citet{butler2026}'s error taxonomy: a hallucination, a
+retrieval error, and a reasoning error call for three different fixes, and a system that only
+addresses one of them will still fail on the other two. The jurisdiction and multilingual synthesis
+extends this lesson geographically. In contexts such as Pakistan, effective systems have to connect
+user queries, which users may express in English, Urdu, or Roman Urdu, to the appropriate legal
+sources while preserving statutory hierarchy, judicial context, and provenance. A system that
+researchers validate only on English-language, single-jurisdiction data has not yet shown that it
+generalizes.
+
+Future research should prioritize structure-preserving retrieval, provenance-aware legal knowledge
+graphs, multilingual query processing, claim-level citation verification, and agentic workflows with
+explicit quality gates. Researchers should test these through reproducible benchmarks that cover the
+complete evidence-to-answer pipeline and report retrieval effectiveness, legal correctness, citation
+support, and cost, without collapsing them into a single score, in the spirit of the groundedness,
+retrieval-accuracy, and correctness decomposition this survey has described. The goal of legal AI
+should not be to replace legal judgment with fluent automated responses. It should be to make legal
+information more accessible, systematic, and auditable, while keeping the distinction between
+retrieved evidence, model-generated interpretation, and conclusions that need professional review.
+Thirty-five years after Ashley first asked whether a computer could compare legal cases, the field's
+next stage will depend less on generation alone and more on the ability to retrieve, contextualize,
+verify, and reproduce evidence-supported legal reasoning.

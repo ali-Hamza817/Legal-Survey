@@ -1,0 +1,15 @@
+% Figure reproduced from Buffa et al. (2025), "Enhancing legal document building with
+% Retrieval-Augmented Generation" (Computer Law & Security Review), Fig. 1, for scholarly
+% discussion and critique within this review. Copyright remains with the original
+% authors/publisher.
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{images/buffa2025_fig1.png}
+\caption{Figure reproduced from \citet{buffa2025}: the JusBuild architecture for legal document
+building. Legal documents pass through a Document Segmentation Layer (preprocessing, CRF
+rewiring, node classification) into a Storage Layer of document sections and their embeddings.
+At drafting time, a Retrieval Layer returns relevant retrieved sections and a RAG Layer returns
+AI-generated sections, both surfaced to the legal practitioner inside the Document Builder
+Environment alongside the document currently being drafted.}
+\label{fig:jusbuild}
+\end{figure*}

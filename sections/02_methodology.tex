@@ -1,0 +1,64 @@
+\section{Review Methodology}
+\label{sec:method}
+
+This study uses a structured, chronological narrative review of legal artificial intelligence.
+Instead of grouping the literature by topic, it follows the order of publication. Each advance
+appears after the work that motivated it and before the work that responded to it. This design
+suits a field that spans several related but distinct areas. These include legal knowledge
+representation, natural language processing, information retrieval, large language models, and
+evidence verification. The design also matches the review's purpose directly. We want to explain how
+each change in system design responded to a limitation of what came before it, not to rank models by
+a single reported score.
+
+We identified relevant literature across computer science and legal informatics sources, including
+Scopus, Web of Science, IEEE Xplore, the ACM Digital Library, the ACL Anthology, Google Scholar,
+official publisher and proceedings pages, and arXiv. The search combined four term groups: the legal
+domain (for example, ``legal AI'' or ``case-based reasoning''), the underlying technology (``legal
+language model'', ``LEGAL-BERT''), retrieval and document structure (``hybrid retrieval'',
+``structure-aware indexing'', ``knowledge graph''), and reliability (``legal hallucination'',
+``citation verification''). We supplemented keyword search with backward and forward citation
+searching to catch studies that different terminology might have hidden. Table~\ref{tab:sel}
+summarizes the selection criteria we applied to the resulting records.
+
+\begin{table*}[t]
+\centering
+\caption{Study selection criteria.}
+\label{tab:sel}
+\footnotesize
+\setlength{\tabcolsep}{5pt}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{2.6cm} >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X}
+\toprule
+\textbf{Criterion} & \textbf{Include} & \textbf{Exclude} \\
+\midrule
+Topical relevance & Legal reasoning, legal NLP, retrieval, generation, verification, or evaluation. & AI in an unrelated domain with no meaningful link to legal information processing. \\
+Technical contribution & A method, architecture, dataset, benchmark, or substantive empirical finding. & Mentions legal AI only in passing, with no relevant technical content. \\
+Venue quality & A peer-reviewed article or proceedings paper in an established, well-indexed venue (a Q1-ranked journal or a recognized conference); foundational works; preprints that add substantial, clearly identified value. & Venues with no established standing in computer science or legal informatics, and non-scholarly material used as if it were primary research. \\
+Evidence availability & An accessible bibliographic record, checked against the publisher's page or official proceedings, with a verifiable DOI where one exists. & Claims or publication details that cannot be independently verified. \\
+Jurisdiction and language & Any jurisdiction or language relevant to the review's research questions. & No jurisdiction or language excluded solely for being under-represented. \\
+\bottomrule
+\end{tabularx}
+\end{table*}
+
+We included a record only after checking its bibliographic details against the publisher's page,
+the official proceedings, or another authoritative source, and after verifying its DOI where one
+exists. For preprints, we treated the consulted version as distinct from any later published
+version. We checked venue quality deliberately. This survey keeps to Q1-ranked journals and
+recognized conference venues, and we dropped a number of candidate papers at this stage because we
+could not confirm their venue met that bar. For each included study, we recorded its research
+objective, legal domain and jurisdiction, technical approach, evidence sources, evaluation method,
+and acknowledged limitations. We then sorted this information into the thematic categories the
+following sections use: historical foundations, legal language models, retrieval architecture,
+document and knowledge representation, generation and orchestration, reliability and verification,
+and evaluation design.
+
+We present the resulting set of studies in original publication order, year by year, instead of
+grouping them by theme. This lets the historical account in Section~\ref{sec:foundations} and onward read as one
+continuous development rather than a set of separately ordered topics. We report quantitative
+results only together with their original experimental context, because studies differ in
+jurisdiction, corpus, query set, and definition of success. A legal classification benchmark, for
+instance, cannot be compared directly with a human evaluation of unsupported legal claims. Throughout
+the survey we keep three kinds of statements separate: findings individual studies report directly,
+interpretations we draw by comparing multiple studies, and open questions for future research. That
+discipline, together with our restriction to independently verifiable, well-indexed sources, keeps
+this a critical narrative of the field rather than a catalogue of publications.

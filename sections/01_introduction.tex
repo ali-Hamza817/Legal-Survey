@@ -1,0 +1,73 @@
+\section{Introduction}
+\label{sec:intro}
+
+A legal answer is only as good as the authority behind it. An explanation that reads smoothly but
+cites the wrong statute, overlooks a controlling precedent, or misses a recent amendment is not a
+minor flaw; it is a wrong answer, and one with real consequences for whoever relies on it. This is
+what sets legal information systems apart from general-purpose question answering. A useful legal
+system must identify the statutes and precedents that actually govern a question, interpret them in
+the context that gives them meaning, show how they relate to one another, and present conclusions a
+reader can check against the original source. Exact statutory wording matters. A provision's
+relationship to its subordinate clauses matters. The authority of a judicial decision matters, and
+so do the jurisdiction and date a rule applies to. A response can get any one of these wrong while
+still sounding confident and complete, which is precisely what makes legal retrieval harder than
+most other retrieval problems. Building a system that respects all of these constraints at once has
+occupied legal AI research for more than three decades, and the problem is still open today.
+
+This survey tells that three-decade story as a single, continuous narrative, in the order it
+actually happened. Legal artificial intelligence (legal AI) did not arrive through one breakthrough;
+it grew through a long sequence of smaller advances, each responding to a specific limitation in the
+work before it. The story begins in 1991, when Kevin Ashley's case-based reasoning system HYPO showed
+that a computer could compare a new legal dispute with earlier cases and identify the similarities
+and differences that make a legal argument \citep{ashley1991}. We take HYPO as our starting point and
+move forward year by year, introducing every system, benchmark, and finding in the order the field
+actually published it. A reader who wants to understand how today's legal retrieval-augmented
+generation (RAG) systems came to exist should be able to retrace the same path the field itself took,
+without jumping between decades or topics. So the structure of this survey is the timeline of the
+field itself, not a set of themes we arranged for convenience.
+
+Three questions recur across this history, and they give the survey its structure. First,
+\emph{how should legal knowledge be represented?} Early systems encoded it as explicit rules and
+case comparisons; later systems learned it as patterns in text; the most recent systems treat it as
+an external, inspectable corpus that a model retrieves from rather than memorizes. Second, \emph{how
+should relevant legal evidence be found?} The field moved from simple keyword matching, to semantic
+and hybrid retrieval, to retrieval that tries to preserve the hierarchical structure of a statute or
+the reasoning inside a judgment. Third, \emph{how should a system's answer be trusted?} Once
+language models became fluent enough to sound authoritative whether or not they were right, the
+field had to build ways of checking a generated claim against the evidence that is meant to support
+it. These three questions, representation, retrieval, and trust, organize everything that follows.
+
+This survey makes four contributions. First, a \textbf{chronological synthesis} that traces legal
+AI's development in the exact order it happened, from case-based reasoning to contemporary
+structure-aware retrieval-augmented generation, explaining the problem that motivated each new piece
+of work. Second, an \textbf{architectural analysis} that separates document representation,
+retrieval, rank fusion, generation, and evidence verification in the order the field introduced
+them, and shows how each component feeds into overall reliability. Third, a \textbf{focused
+comparative case study} of two systems published in 2026, Legalyze and the data-synthesis approach
+of Ren et al., which target different parts of the same pipeline. Fourth, a \textbf{research agenda}
+covering open challenges in structure-preserving retrieval, jurisdiction-aware evidence selection,
+multilingual legal access, and verifiable answer generation. Table~\ref{tab:rq} summarizes the
+research questions behind these four contributions.
+
+\begin{table*}[t]
+\centering
+\caption{Research questions guiding the survey.}
+\label{tab:rq}
+\footnotesize
+\setlength{\tabcolsep}{5pt}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X}
+\toprule
+\textbf{Research question} & \textbf{Purpose} \\
+\midrule
+\textbf{RQ1.} How did legal AI evolve, in the order it actually happened, from case-based reasoning to RAG? & Present the principal methodological transitions and the limitations that motivated each one, in sequence. \\
+\textbf{RQ2.} How do legal retrieval architectures affect evidence quality? & Explain how systems locate relevant authorities and preserve the context needed to interpret them. \\
+\textbf{RQ3.} How should we assess reliability in legal AI? & Distinguish fluent generation from evidence-supported legal answers. \\
+\textbf{RQ4.} What challenges remain for jurisdiction-aware and multilingual legal AI? & Identify research opportunities across different legal and linguistic contexts. \\
+\bottomrule
+\end{tabularx}
+\end{table*}
+
+Section~\ref{sec:method} explains how we found, checked, and selected the literature for this
+chronological account. The narrative itself then begins in Section~\ref{sec:foundations} with
+Ashley's 1991 work on HYPO.
